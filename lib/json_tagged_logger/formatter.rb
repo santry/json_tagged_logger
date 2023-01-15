@@ -1,3 +1,6 @@
+require 'active_support/core_ext/hash/keys'
+require 'json'
+
 module JsonTaggedLogger
   class Formatter
     def call(severity, _time, _progname, message)
@@ -10,7 +13,7 @@ module JsonTaggedLogger
       json_tags.each { |t| log.merge!(t) }
 
       if text_tags.present?
-        log[:tags] = text_tags
+        log[:tags] = text_tags.to_a
       end
 
       bare_message = message_without_tags(message)
@@ -21,8 +24,14 @@ module JsonTaggedLogger
         parsed_message = bare_message
       ensure
         if parsed_message.is_a?(Hash)
-          log.merge!(parsed_message.symbolize_keys)
+          parsed_message.symbolize_keys!
+          if log.has_key?(:tags) && parsed_message.has_key?(:tags)
+            parsed_message[:tags] = parsed_message[:tags] + log[:tags]
+          end
+
+          log.merge!(parsed_message)
         else
+          #binding.irb
           log.merge!(msg: parsed_message.strip)
         end
       end
