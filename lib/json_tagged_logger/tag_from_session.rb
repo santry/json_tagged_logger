@@ -1,8 +1,8 @@
 module JsonTaggedLogger
   module TagFromSession
-    def self.get(key)
+    def self.get(log_label, session_key = log_label)
       lambda do |request|
-        { key => get_value_from_session(request, key) }.to_json
+        { log_label => get_value_from_session(request, session_key) }.to_json
       end
     end
 
