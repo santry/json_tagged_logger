@@ -1,5 +1,7 @@
 # JsonTaggedLogger
 
+[![Build Status](https://github.com/santry/json_tagged_logger/actions/workflows/ci.yml/badge.svg)](https://github.com/santry/json_tagged_logger/actions/workflows/ci.yml)
+
 `JsonTaggedLogger` works in conjunction with [`ActiveSupport::TaggedLogging`](https://api.rubyonrails.org/classes/ActiveSupport/TaggedLogging.html) and (optionally) [Lograge](https://github.com/roidrage/lograge) to produce JSON-formatted log output. By itself, `ActiveSupport::TaggedLogging` supports simple tagging. With `JsonTaggedLogger`, you can compose key/value pairs, simple tags, and the log message itself into a single JSON document for easy consumption and parsing in log aggregators.
 
 ## Usage

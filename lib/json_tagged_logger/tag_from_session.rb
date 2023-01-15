@@ -1,3 +1,5 @@
+require 'action_dispatch'
+
 module JsonTaggedLogger
   module TagFromSession
     def self.get(log_label, session_key = log_label)
