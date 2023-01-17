@@ -140,4 +140,19 @@ class FormatterTest < Minitest::Test
     assert_equal "val1", results["key1"]
     assert_equal ["tag1", "tag2", "tag3", "tag4"], results["tags"]
   end
+
+  def test_optional_pretty_printing
+    @logger.formatter.pretty_print = true
+
+    @logger.info("hello world")
+
+    expected_output = <<~JSON
+    {
+      "level": "INFO",
+      "msg": "hello world"
+    }
+    JSON
+
+    assert_equal expected_output, @output.string
+  end
 end
