@@ -3,6 +3,12 @@ require 'json'
 
 module JsonTaggedLogger
   class Formatter
+    attr_accessor :pretty_print
+
+    def initialize(pretty_print: false)
+      @pretty_pretty = pretty_print
+    end
+
     def call(severity, _time, _progname, message)
       log = {
         level: severity,
@@ -36,7 +42,7 @@ module JsonTaggedLogger
         end
       end
 
-      log.compact.to_json + "\n"
+      format_for_output(log)
     end
 
     private
@@ -68,6 +74,18 @@ module JsonTaggedLogger
       else
         message
       end
+    end
+
+    def format_for_output(log_hash)
+      compacted_log = log_hash.compact
+
+      output_json = if pretty_print
+                      JSON.pretty_generate(compacted_log)
+                    else
+                      JSON.generate(compacted_log)
+                    end
+
+      output_json + "\n"
     end
   end
 end

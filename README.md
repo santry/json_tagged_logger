@@ -62,7 +62,7 @@ will get you something like
 }
 ```
 
-[Note: I've pretty-printed the output in these examples for easier reading. The actual log output will be on a single line without extra whitespace.]
+[_Note_: By default, `JsonTaggedLogger::Formatter` outputs logs as single lines without extra whitespace. Setting `JsonTaggedLogger::Formatter#pretty_print` to `true` will pretty print the logs, as I've done in these examples.]
 
 Importantly, if the controller action (or any code it calls along the way) has an explicit call to `Rails.logger.tagged("TAG").info("tagged log message")`, you'll get the same key/value tags (`request_id`, `host`, `my_param`, &c.) in the JSON document along with a `tags` key:
 
