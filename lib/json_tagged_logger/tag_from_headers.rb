@@ -1,8 +1,12 @@
 module JsonTaggedLogger
   module TagFromHeaders
-    def self.get(log_label, header_key)
+    def self.get(*header_keys, **labeled_header_keys)
+      labels = header_keys + labeled_header_keys.keys
+      header_keys = header_keys + labeled_header_keys.values
+
       lambda do |request|
-        { log_label => request.headers[header_key] }.to_json
+        values = header_keys.map { |hk| request.headers[hk] }
+        labels.zip(values).to_h.compact.to_json
       end
     end
   end

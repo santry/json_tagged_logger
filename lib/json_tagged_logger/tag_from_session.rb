@@ -8,7 +8,7 @@ module JsonTaggedLogger
 
       lambda do |request|
         values = get_values_from_session(request, session_keys)
-        labels.zip(values).to_h.to_json
+        labels.zip(values).to_h.compact.to_json
       end
     end
 

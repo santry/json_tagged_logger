@@ -141,6 +141,17 @@ class FormatterTest < Minitest::Test
     assert_equal ["tag1", "tag2", "tag3", "tag4"], results["tags"]
   end
 
+  def test_empty_json_tags
+    message_hash = { key1: "val1", tags: ["tag1", "tag2"] }
+
+    @logger.tagged("tag3", "tag4", "{}", "{}").info(message_hash.to_json)
+
+    results = JSON.parse(@output.string)
+
+    assert_equal "val1", results["key1"]
+    assert_equal ["tag1", "tag2", "tag3", "tag4"], results["tags"]
+  end
+
   def test_optional_pretty_printing
     @logger.formatter.pretty_print = true
 
