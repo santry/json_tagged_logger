@@ -21,7 +21,7 @@ Rails.application.configure do
     :host,
     ->(request) { { my_param: request.query_parameters["my_param"] }.to_json },
     JsonTaggedLogger::TagFromSession.get(:user_id),
-    JsonTaggedLogger::TagFromHeaders.get(:my_custom_header, "X-Custom-Header"),
+    JsonTaggedLogger::TagFromHeaders.get(my_custom_header: "X-Custom-Header"),
   )
 
   logger = ActiveSupport::Logger.new(STDOUT)
