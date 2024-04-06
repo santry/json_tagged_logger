@@ -110,7 +110,7 @@ those will be added to the `tags` key in the JSON document
 
 ## Why?
 
-On its own, `ActiveSupport::TaggedLogging` adds individual tags wrapped in squre brackets at the start of each line of log output. A configuration like
+On its own, `ActiveSupport::TaggedLogging` adds individual tags wrapped in square brackets at the start of each line of log output. A configuration like
 
 ```ruby
 Rails.application.configure do
