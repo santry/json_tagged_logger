@@ -36,9 +36,10 @@ module JsonTaggedLogger
           end
 
           log.merge!(parsed_message)
-        else
-          #binding.irb
+        elsif parsed_message.respond_to?(:strip)
           log.merge!(msg: parsed_message.strip)
+        else
+          parsed_message.to_s
         end
       end
 
