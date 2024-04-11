@@ -37,7 +37,7 @@ module JsonTaggedLogger
 
           log.merge!(parsed_message)
         else
-          log.merge!(msg: parsed_message.strip)
+          log.merge!(msg: parsed_message.to_s.strip)
         end
       end
 
@@ -55,6 +55,8 @@ module JsonTaggedLogger
           tag = JSON.parse(t)
         rescue JSON::ParserError
           tag = t
+        rescue TypeError
+          tag = t.to_s
         ensure
           if tag.is_a?(Hash)
             json_tags << tag
