@@ -152,6 +152,24 @@ class FormatterTest < Minitest::Test
     assert_equal ["tag1", "tag2", "tag3", "tag4"], results["tags"]
   end
 
+  def test_non_json_non_string_message
+    @logger.info(42)
+
+    results = JSON.parse(@output.string)
+
+    assert_equal "42", results["msg"]
+  end
+
+  def test_non_json_non_string_tag
+    non_json_non_string_tag = 42
+
+    @logger.tagged(non_json_non_string_tag).info
+
+    results = JSON.parse(@output.string)
+
+    assert_equal ["42"], results["tags"]
+  end
+
   def test_optional_pretty_printing
     @logger.formatter.pretty_print = true
 
