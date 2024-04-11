@@ -6,7 +6,7 @@ module JsonTaggedLogger
     attr_accessor :pretty_print
 
     def initialize(pretty_print: false)
-      @pretty_pretty = pretty_print
+      @pretty_print = pretty_print
     end
 
     def call(severity, _time, _progname, message)

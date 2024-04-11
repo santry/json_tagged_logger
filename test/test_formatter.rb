@@ -166,4 +166,19 @@ class FormatterTest < Minitest::Test
 
     assert_equal expected_output, @output.string
   end
+
+  def test_pretty_printing_set_by_initializer
+    @logger = JsonTaggedLogger::Logger.new(::Logger.new(@output), pretty_print: true)
+
+    @logger.info("hello world")
+
+    expected_output = <<~JSON
+    {
+      "level": "INFO",
+      "msg": "hello world"
+    }
+    JSON
+
+    assert_equal expected_output, @output.string
+  end
 end
