@@ -20,8 +20,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'minitest', '>= 5.16'
   s.add_development_dependency 'rake', '>= 13.0'
 
-  s.add_runtime_dependency 'activesupport', '>= 6.1'
-  s.add_runtime_dependency 'actionpack', '>= 6.1'
+  s.add_runtime_dependency 'activesupport', '>= 5.2'
+  s.add_runtime_dependency 'actionpack', '>= 5.2'
 
   s.required_ruby_version = '>= 2.7'
 end

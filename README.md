@@ -4,6 +4,26 @@
 
 `JsonTaggedLogger` works in conjunction with [`ActiveSupport::TaggedLogging`](https://api.rubyonrails.org/classes/ActiveSupport/TaggedLogging.html) and (optionally) [Lograge](https://github.com/roidrage/lograge) to produce JSON-formatted log output. By itself, `ActiveSupport::TaggedLogging` supports simple tagging. With `JsonTaggedLogger`, you can compose key/value pairs, simple tags, and the log message itself into a single JSON document for easy consumption and parsing in log aggregators.
 
+## Installation
+
+Install the gem and add to the application's Gemfile by executing:
+
+```bash
+bundle add json_tagged_logger
+```
+
+### Rails v5.2 - 7.2 (Optional: Upgrade to latest `ActiveSupport::TaggedLogging`)
+
+The gem [`activesupport-tagged_logging`](https://github.com/pboling/activesupport-tagged_logging)
+is a careful extraction of `ActiveSupport::TaggedLogging` from the beta of Rails v8.0.
+It will not have an effect if loaded in Rails 8, but in older versions of Rails,
+down to Rails v5.2, it will upgrade the TaggedLogging API to the Rails 8 version,
+which gives this gem, `json_tagged_logger`, a stable API target.
+
+```bash
+bundle add activesupport-tagged_logging
+```
+
 ## Usage
 
 Given the following configuration,
