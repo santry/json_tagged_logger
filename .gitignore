@@ -1,2 +1,7 @@
 Gemfile.lock
 pkg/
+
+# direnv local customizations
+.env.local
+# prefer direnv over dotenv
+.env
