@@ -1,8 +1,11 @@
 require 'active_support/core_ext/hash/keys'
+require 'active_support/tagged_logging'
 require 'json'
 
 module JsonTaggedLogger
   class Formatter
+    include ActiveSupport::TaggedLogging::Formatter
+
     attr_accessor :pretty_print
 
     def initialize(pretty_print: false)
