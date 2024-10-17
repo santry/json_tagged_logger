@@ -22,7 +22,7 @@ module JsonTaggedLogger
         log[:tags] = text_tags.to_a
       end
 
-      bare_message = message_without_tags(message)
+      bare_message = message_without_tags(message.to_s)
 
       begin
         parsed_message = JSON.parse(bare_message)
