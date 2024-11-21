@@ -1,5 +1,5 @@
+require 'active_support'
 require 'active_support/core_ext/hash/keys'
-require 'active_support/tagged_logging'
 require 'json'
 
 module JsonTaggedLogger
