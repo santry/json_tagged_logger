@@ -33,7 +33,7 @@ class FormatterTest < Minitest::Test
 
     @logger.info(message_hash.to_json)
 
-    expected_json = { level: "INFO" }.merge(message_hash).to_json + "\n"
+    expected_json = { level: "INFO", "time": Time.now }.merge(message_hash).to_json + "\n"
 
     assert_equal expected_json, @output.string
   end
@@ -178,6 +178,7 @@ class FormatterTest < Minitest::Test
     expected_output = <<~JSON
     {
       "level": "INFO",
+      "time": #{Time.now.to_json},
       "msg": "hello world"
     }
     JSON
@@ -193,6 +194,7 @@ class FormatterTest < Minitest::Test
     expected_output = <<~JSON
     {
       "level": "INFO",
+      "time": #{Time.now.to_json},
       "msg": "hello world"
     }
     JSON
