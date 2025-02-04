@@ -12,9 +12,10 @@ module JsonTaggedLogger
       @pretty_print = pretty_print
     end
 
-    def call(severity, _time, _progname, message)
+    def call(severity, time, _progname, message)
       log = {
         level: severity,
+        time: time
       }
 
       json_tags, text_tags = extract_tags
