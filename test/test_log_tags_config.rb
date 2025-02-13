@@ -1,9 +1,10 @@
-require 'minitest/autorun'
+# frozen_string_literal: true
 
-require 'json_tagged_logger'
+require "minitest/autorun"
+
+require "json_tagged_logger"
 
 class LogTagsConfigTest < Minitest::Test
-
   def setup
     @mock_request = Minitest::Mock.new
     @request_id = "1234"
@@ -34,7 +35,7 @@ class LogTagsConfigTest < Minitest::Test
   end
 
   def test_generate_tag_config_for_proc
-    request_id_proc = -> (request) { { request_id: request.request_id }.to_json }
+    request_id_proc = ->(request) { { request_id: request.request_id }.to_json }
 
     config = JsonTaggedLogger::LogTagsConfig.generate(request_id_proc)
 
@@ -53,7 +54,7 @@ class LogTagsConfigTest < Minitest::Test
   end
 
   def test_mixed_string_symbol_and_proc
-    request_id_proc = -> (request) { { request_id: request.request_id }.to_json }
+    request_id_proc = ->(request) { { request_id: request.request_id }.to_json }
 
     config = JsonTaggedLogger::LogTagsConfig.generate("tag", :request_id, request_id_proc)
 
@@ -69,7 +70,7 @@ class LogTagsConfigTest < Minitest::Test
 
       @mock_request.verify
 
-      expected_json = { request_id: @request_id  }.to_json
+      expected_json = { request_id: @request_id }.to_json
 
       assert_equal expected_json, tag_output
     end
@@ -81,6 +82,6 @@ class LogTagsConfigTest < Minitest::Test
 
   def test_raises_on_proc_with_wrong_arity
     assert_raises(ArgumentError) { JsonTaggedLogger::LogTagsConfig.generate(-> { "0 arity" }) }
-    assert_raises(ArgumentError) { JsonTaggedLogger::LogTagsConfig.generate(-> (a, b) { "arity > 1" }) }
+    assert_raises(ArgumentError) { JsonTaggedLogger::LogTagsConfig.generate(->(_a, _b) { "arity > 1" }) }
   end
 end

@@ -1,8 +1,10 @@
-require 'minitest/autorun'
+# frozen_string_literal: true
 
-require 'json_tagged_logger'
-require 'logger'
-require 'stringio'
+require "minitest/autorun"
+
+require "json_tagged_logger"
+require "logger"
+require "stringio"
 
 class LoggerTest < Minitest::Test
   def setup

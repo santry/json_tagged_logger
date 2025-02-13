@@ -1,0 +1,30 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rake
+
+inherit_mode:
+  merge:
+    - Include
+    - Exclude
+
+AllCops:
+  TargetRubyVersion: 2.6
+  NewCops: enable
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+Metrics/MethodLength:
+  Exclude:
+    - 'test/**/*'
+Metrics/AbcSize:
+  Exclude:
+    - 'test/**/*'
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/SymbolArray:
+  EnforcedStyle: brackets
+Style/WordArray:
+  EnforcedStyle: brackets

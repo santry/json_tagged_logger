@@ -1,9 +1,11 @@
-require 'minitest/autorun'
+# frozen_string_literal: true
 
-require 'json'
-require 'json_tagged_logger'
-require 'logger'
-require 'stringio'
+require "minitest/autorun"
+
+require "json"
+require "json_tagged_logger"
+require "logger"
+require "stringio"
 
 class FormatterTest < Minitest::Test
   def setup
@@ -11,8 +13,8 @@ class FormatterTest < Minitest::Test
     @logger = JsonTaggedLogger::Logger.new(::Logger.new(@output))
   end
 
-  %i(fatal error warn info debug).each do |level|
-    define_method("test_#{level.to_s}_level") do
+  [:fatal, :error, :warn, :info, :debug].each do |level|
+    define_method(:"test_#{level}_level") do
       @logger.send(level)
 
       result = JSON.parse(@output.string)
@@ -33,7 +35,7 @@ class FormatterTest < Minitest::Test
 
     @logger.info(message_hash.to_json)
 
-    expected_json = { level: "INFO", "time": Time.now }.merge(message_hash).to_json + "\n"
+    expected_json = "#{{ level: 'INFO', time: Time.now }.merge(message_hash).to_json}\n"
 
     assert_equal expected_json, @output.string
   end
@@ -95,8 +97,7 @@ class FormatterTest < Minitest::Test
                    tag2,
                    tag3,
                    tag4,
-                   tag_missing_quotes_around_key).
-                   info(message)
+                   tag_missing_quotes_around_key).info(message)
 
     results = JSON.parse(@output.string)
 
@@ -118,8 +119,7 @@ class FormatterTest < Minitest::Test
                    tag2,
                    tag3,
                    tag4,
-                   tag_missing_quotes_around_key).
-                   info(message_hash.to_json)
+                   tag_missing_quotes_around_key).info(message_hash.to_json)
 
     results = JSON.parse(@output.string)
 
@@ -176,11 +176,11 @@ class FormatterTest < Minitest::Test
     @logger.info("hello world")
 
     expected_output = <<~JSON
-    {
-      "level": "INFO",
-      "time": #{Time.now.to_json},
-      "msg": "hello world"
-    }
+      {
+        "level": "INFO",
+        "time": #{Time.now.to_json},
+        "msg": "hello world"
+      }
     JSON
 
     assert_equal expected_output, @output.string
@@ -192,11 +192,11 @@ class FormatterTest < Minitest::Test
     @logger.info("hello world")
 
     expected_output = <<~JSON
-    {
-      "level": "INFO",
-      "time": #{Time.now.to_json},
-      "msg": "hello world"
-    }
+      {
+        "level": "INFO",
+        "time": #{Time.now.to_json},
+        "msg": "hello world"
+      }
     JSON
 
     assert_equal expected_output, @output.string

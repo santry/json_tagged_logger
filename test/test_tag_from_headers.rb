@@ -1,6 +1,8 @@
-require 'minitest/autorun'
+# frozen_string_literal: true
 
-require 'json_tagged_logger'
+require "minitest/autorun"
+
+require "json_tagged_logger"
 
 class TagFromHeadersTest < Minitest::Test
   def setup
@@ -11,7 +13,7 @@ class TagFromHeadersTest < Minitest::Test
     generated_proc = JsonTaggedLogger::TagFromHeaders.get("Content-Type")
 
     headers = {
-      "Content-Type" => "application/json",
+      "Content-Type" => "application/json"
     }
 
     @mock_request.expect :headers, headers
@@ -21,7 +23,7 @@ class TagFromHeadersTest < Minitest::Test
     @mock_request.verify
 
     expected_json = {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     }.to_json
 
     assert_equal expected_json, output

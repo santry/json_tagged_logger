@@ -1,10 +1,12 @@
-require 'active_support'
+# frozen_string_literal: true
+
+require "active_support"
 
 module JsonTaggedLogger
   module Logger
     def self.new(logger, pretty_print: false)
       logger = logger.clone
-      logger.formatter =  JsonTaggedLogger::Formatter.new(pretty_print: pretty_print)
+      logger.formatter = JsonTaggedLogger::Formatter.new(pretty_print: pretty_print)
       logger.extend(self)
     end
 
@@ -20,6 +22,5 @@ module JsonTaggedLogger
         logger
       end
     end
-
   end
 end
