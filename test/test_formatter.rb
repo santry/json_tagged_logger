@@ -31,11 +31,15 @@ class FormatterTest < Minitest::Test
   def test_json_message_is_merged_with_log_document
     message_hash = { key1: "val1", key2: "val2" }
 
-    @logger.info(message_hash.to_json)
+    fixed_time = Time.now
 
-    expected_json = { level: "INFO", "time": Time.now }.merge(message_hash).to_json + "\n"
+    Time.stub(:now, fixed_time) do
+      @logger.info(message_hash.to_json)
 
-    assert_equal expected_json, @output.string
+      expected_json = { level: "INFO", "time": fixed_time.utc.iso8601(3) }.merge(message_hash).to_json + "\n"
+
+      assert_equal expected_json, @output.string
+    end
   end
 
   def test_plain_tags_are_collected_under_tags_key
@@ -173,32 +177,40 @@ class FormatterTest < Minitest::Test
   def test_optional_pretty_printing
     @logger.formatter.pretty_print = true
 
-    @logger.info("hello world")
+    fixed_time = Time.now
 
-    expected_output = <<~JSON
-    {
-      "level": "INFO",
-      "time": #{Time.now.to_json},
-      "msg": "hello world"
-    }
-    JSON
+    Time.stub(:now, fixed_time) do
+      @logger.info("hello world")
 
-    assert_equal expected_output, @output.string
+      expected_output = <<~JSON
+      {
+        "level": "INFO",
+        "time": "#{fixed_time.utc.iso8601(3)}",
+        "msg": "hello world"
+      }
+      JSON
+
+      assert_equal expected_output, @output.string
+    end
   end
 
   def test_pretty_printing_set_by_initializer
     @logger = JsonTaggedLogger::Logger.new(::Logger.new(@output), pretty_print: true)
 
-    @logger.info("hello world")
+    fixed_time = Time.now
 
-    expected_output = <<~JSON
-    {
-      "level": "INFO",
-      "time": #{Time.now.to_json},
-      "msg": "hello world"
-    }
-    JSON
+    Time.stub(:now, fixed_time) do
+      @logger.info("hello world")
 
-    assert_equal expected_output, @output.string
+      expected_output = <<~JSON
+      {
+        "level": "INFO",
+        "time": "#{fixed_time.utc.iso8601(3)}",
+        "msg": "hello world"
+      }
+      JSON
+
+      assert_equal expected_output, @output.string
+    end
   end
 end
