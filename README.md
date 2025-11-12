@@ -45,7 +45,7 @@ will get you something like
 ```json
 {
   "level": "INFO",
-  "time": "2025-02-04 18:56:44 +0300",
+  "time": "2025-02-04T18:56:44.711Z",
   "request_id": "914f6104-538d-4ddc-beef-37bfe06ca1c7",
   "host": "127.0.0.1",
   "my_param": "param value",
@@ -71,7 +71,7 @@ Importantly, if the controller action (or any code it calls along the way) has a
 ```json
 {
   "level": "INFO",
-  "time": "2025-02-04 18:56:44 +0300",
+  "time": "2025-02-04T18:56:44.711Z",
   "request_id": "914f6104-538d-4ddc-beef-37bfe06ca1c7",
   "host": "127.0.0.1",
   "my_param": "param value",
@@ -98,7 +98,7 @@ those will be added to the `tags` key in the JSON document
 ```json
 {
   "level": "INFO",
-  "time": "2025-02-04 18:56:44 +0300",
+  "time": "2025-02-04T18:56:44.711Z",
   "request_id": "914f6104-538d-4ddc-beef-37bfe06ca1c7",
   "host": "127.0.0.1",
   "my_param": "param value",
