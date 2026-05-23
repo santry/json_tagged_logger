@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require 'minitest/mock'
 
 require 'json_tagged_logger'
 
