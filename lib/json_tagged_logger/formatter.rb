@@ -1,6 +1,7 @@
 require 'active_support'
 require 'active_support/core_ext/hash/keys'
 require 'json'
+require 'time'
 
 module JsonTaggedLogger
   class Formatter
@@ -15,7 +16,7 @@ module JsonTaggedLogger
     def call(severity, time, _progname, message)
       log = {
         level: severity,
-        time: time
+        time: time.utc.iso8601(3)
       }
 
       json_tags, text_tags = extract_tags
